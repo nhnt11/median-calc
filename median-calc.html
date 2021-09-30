@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Median Calculator</title>
+  </head>
+  <body>
+    Calculates median when you only have cdf data points around .5 but not at .5. Enter the data points immediately to the right and left of .5.<br/>
+    right: cdf: <input id="cdf_r" type="number"/> val: <input id="val_r" type="number"/><br/>
+    left: cdf: <input id="cdf_l" type="number"/> val: <input id="val_l" type="number"/><br/>
+    <input type="button" onclick="calc()" value="calc"/>
+    <div id="result">Result will appear here</div>
+    <script>
+      function elt(id) {
+        return document.getElementById(id);
+      }
+      function calc() {
+        let result = "";
+        let cdf_l = parseFloat(elt("cdf_l").value), val_l = parseFloat(elt("val_l").value), cdf_r = parseFloat(elt("cdf_r").value), val_r = parseFloat(elt("val_r").value);
+        let cdf_diff = cdf_r - cdf_l;
+        result += `cdf_diff = ${cdf_diff}\n`;
+        let val_diff = val_r - val_l;
+        result += `val_diff = ${val_diff}\n`;
+        let frac_l = (.5 - cdf_l) / cdf_diff;
+        result += `frac_l = ${frac_l}\n`;
+        let median = (frac_l*val_diff) + val_l;
+        result += `median = ${median}\n`;
+        //elt("result").textContent = result;
+        elt("result").textContent = median;
+      }
+    </script>
+  </body>
+</html>
